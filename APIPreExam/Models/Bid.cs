@@ -9,19 +9,21 @@ namespace APIPreExam.Models
 {
     public class Bid
     {
+        [Required]
         [Key]
-        public int BidId { get; set; }
-
-        
+        [Range(9999, 11000)]
         public int ItemNumber { get; set; }
 
-        
+        [Required]
+        [Display(Description ="Price must be higher than previous bid or rating price")]
         public int Price { get; set; }
 
-        
+        [MaxLength(50)]
+        [Required]
         public string CustomName { get; set; }
 
-        
+        [Required]
+        [MaxLength(12)]
         public string CustomPhone { get; set; }
     }
 }

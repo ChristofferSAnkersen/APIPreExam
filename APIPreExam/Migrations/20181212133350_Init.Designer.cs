@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIPreExam.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20181203143433_revert")]
-    partial class revert
+    [Migration("20181212133350_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace APIPreExam.Migrations
 
             modelBuilder.Entity("APIPreExam.Models.AuctionItem", b =>
                 {
-                    b.Property<int>("AuctionId")
+                    b.Property<int>("ItemNumber")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,36 +31,38 @@ namespace APIPreExam.Migrations
 
                     b.Property<string>("BidCustomePhone");
 
-                    b.Property<int>("BidPrice");
+                    b.Property<int?>("BidPrice");
 
                     b.Property<DateTime>("BidTimeStamp");
 
-                    b.Property<string>("ItemDescription");
-
-                    b.Property<int>("ItemNumber");
+                    b.Property<string>("ItemDescription")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<int>("RatingPrice");
 
-                    b.HasKey("AuctionId");
+                    b.HasKey("ItemNumber");
 
                     b.ToTable("AuctionItems");
                 });
 
             modelBuilder.Entity("APIPreExam.Models.Bid", b =>
                 {
-                    b.Property<int>("BidId")
+                    b.Property<int>("ItemNumber")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CustomName");
+                    b.Property<string>("CustomName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("CustomPhone");
-
-                    b.Property<int>("ItemNumber");
+                    b.Property<string>("CustomPhone")
+                        .IsRequired()
+                        .HasMaxLength(12);
 
                     b.Property<int>("Price");
 
-                    b.HasKey("BidId");
+                    b.HasKey("ItemNumber");
 
                     b.ToTable("Bids");
                 });
