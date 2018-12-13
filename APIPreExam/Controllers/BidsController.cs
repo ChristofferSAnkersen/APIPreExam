@@ -21,6 +21,32 @@ namespace APIPreExam.Controllers
             _context = context;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ProvideBid([FromBody] Bid bid)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var auctionItem = await _context.AuctionItems.FindAsync(bid.ItemNumber);
+            if (auctionItem != null)
+            {
+                auctionItem.BidCustomePhone = bid.CustomPhone;
+                auctionItem.BidCustomName = bid.CustomName;
+                auctionItem.BidPrice = bid.Price;
+                auctionItem.BidTimeStamp = DateTime.Now;
+            }
+
+            _context.Bids.Add(bid);
+            _context.AuctionItems.Add(auctionItem);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetBids", new { id = bid.ItemNumber }, bid);
+        }
+
+
         // GET: api/Bids
         [HttpGet]
         public IEnumerable<Bid> GetBids()

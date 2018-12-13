@@ -19,6 +19,9 @@ namespace APIPreExam.Data
         public DbSet<Bid> Bids { get; set; }
 
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }

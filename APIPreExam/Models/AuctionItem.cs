@@ -10,6 +10,7 @@ namespace APIPreExam.Models
     {
         [Key]
         [Required]
+        //[Range(9999, 11000)]
         public int ItemNumber { get; set; }
 
         [Required]
@@ -27,6 +28,8 @@ namespace APIPreExam.Models
         public string BidCustomePhone { get; set; }
 
         public DateTime BidTimeStamp { get; set; }
+
+        
 
 
     }
